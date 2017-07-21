@@ -1,0 +1,13 @@
+version 0.0.1
+        - streamplay support
+        - gamovideo support
+        - openload needs pairing
+
+version 0.0.2
+        - Cosmetics
+
+version 0.0.3
+        - fixed gamovideo links
+        - added HQQ links
+version 0.0.4
+        - fix the order in episodes from 1 to ....                        
