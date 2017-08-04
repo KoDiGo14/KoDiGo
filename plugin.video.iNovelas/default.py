@@ -1,10 +1,21 @@
 # -*- coding: utf-8 -*-
-import json, os, re, requests, sys, urllib2, urllib, urlresolver, xbmc, xbmcaddon, xbmcgui, xbmcplugin
+import re
+import sys
+import urllib
+
+import requests
+from resolvers import netutv
+
+import urlresolver
+import xbmc
+import xbmcaddon
+import xbmcgui
+import xbmcplugin
 from resources import client  ###THANKS TO TWILIGHT FOR HIS CODE!!!
-from resources import hqqresolver ###THANKS TO WEIIGO FOR HIS CODE!!!
+
 ###THANKS TO DANDYMedia to use his addon as template and making this addon that makes happy my wife!!!
 
-s = requests.session() 
+s = requests.session()
 User_Agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.89 Safari/537.36'
 
 
@@ -114,11 +125,10 @@ def Get_links(name,url): #10
     Regex = re.compile('<iframe src="(.+?)"',re.DOTALL).findall(OPEN)
     for url in Regex:
         vid_id = re.compile('http[s]?://(.+?)\.',re.DOTALL).findall(url)
-        if 'sebuscar' in vid_id:
-            continue
-        for id in vid_id:
-            name = name + ' [B]|'+id
-            addDir('[B][COLOR white]Ver en [COLOR lime]%s[/COLOR][/B]'%name,url,100,iconimage,FANART,name)
+        for title in vid_id:
+            if 'sebuscar' in vid_id:
+                continue
+            addDir('[B][COLOR white]{} [B]| [COLOR lime]{}[/COLOR][/B]'.format(name,title),url,100,iconimage,FANART,name)
     xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
 
@@ -145,10 +155,12 @@ def evaluate(host):
             OPEN = client.request(host, cookie=cookie, referer=BASEURL)
             host = re.compile('file: "(.+?)"',re.DOTALL).findall(OPEN)[1]
 
-        elif 'hqq.watch/player/' in host:
-            vid = host.split('=')[1]
-            hqqvidresolver = hqqresolver.hqqResolver()
-            host = hqqvidresolver.resolve(vid)
+        elif 'streamplay' in host:
+            host = urlresolver.resolve(host)
+
+
+        elif 'hqq' in host:
+            host = netutv.get_video_url(host)
 
 
         elif urlresolver.HostedMediaFile(host):
@@ -165,7 +177,6 @@ def Open_Url(url):
     link = s.get(url, headers=headers).text
     link = link.encode('ascii', 'ignore')
     return link
-    xbmcplugin.endOfDirectory(int(sys.argv[1]))
 
 def addDir(name,url,mode,iconimage,fanart,description):
     u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&description="+urllib.quote_plus(description)
