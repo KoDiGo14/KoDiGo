@@ -10,4 +10,6 @@ version 0.0.3
         - fixed gamovideo links
         - added HQQ links
 version 0.0.4
-        - fix the order in episodes from 1 to ....                        
+        - fix the order in episodes from 1 to ....
+version 0.0.5
+        - fix hqq links by netu.tv resolver
