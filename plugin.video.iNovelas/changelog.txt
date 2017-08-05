@@ -13,3 +13,7 @@ version 0.0.4
         - fix the order in episodes from 1 to ....
 version 0.0.5
         - fix hqq links by netu.tv resolver
+version 0.0.6
+        - add streamplay resolver
+        - corrections on default.py
+
