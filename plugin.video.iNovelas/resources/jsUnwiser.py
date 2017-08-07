@@ -21,7 +21,7 @@
 # *  based on https://gitorious.org/iptv-pl-dla-openpli/ urlresolver
 # */
 
-import re,traceback,sys
+import re
 
 class JsUnwiser():
 
