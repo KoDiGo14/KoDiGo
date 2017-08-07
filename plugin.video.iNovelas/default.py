@@ -120,7 +120,7 @@ def Get_links(name,url): #10
 		for title in vid_id:
 			if 'sebuscar' in vid_id:
 				continue
-			addDir('[B][COLOR white]{} [B]| [COLOR lime]{}[/COLOR][/B]'.format(name,title),url,100,iconimage,FANART,name)
+			addDir('[B][COLOR white]{0} [B]| [COLOR lime]{1}[/COLOR][/B]'.format(name,title),url,100,iconimage,FANART,name)
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
 
