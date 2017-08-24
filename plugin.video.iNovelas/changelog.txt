@@ -16,4 +16,5 @@ version 0.0.5
 version 0.0.6
         - add streamplay resolver
         - corrections on default.py
-
+version 0.0.7
+	- fixing menu "Letras"

@@ -42,7 +42,7 @@ def Get_lista(url): #3
 
 def Get_letras(url): #9
 	OPEN = client.request(url)
-	Regex = re.compile('\'letras\'(.+?)</ul>',re.DOTALL).findall(OPEN)[0]
+	Regex = re.compile('id="letras"(.+?)</ul>',re.DOTALL).findall(OPEN)[0]
 	Regex2 = re.compile('href="(.+?)".+?">(.+?)</a>',re.DOTALL).findall(str(Regex))
 	for url,name in Regex2:
 		if len(name) < 2:
@@ -120,6 +120,7 @@ def Get_links(name,url): #10
 		for title in vid_id:
 			if 'sebuscar' in vid_id:
 				continue
+			title = title.replace('hqq','netu.tv')	
 			addDir('[B][COLOR white]{0} [B]| [COLOR lime]{1}[/COLOR][/B]'.format(name,title),url,100,iconimage,FANART,name)
 	xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 
@@ -170,14 +171,6 @@ def evaluate(host):
 	except:pass
 
 
-
-def Open_Url(url):
-	headers = {}
-	headers['User-Agent'] = User_Agent
-	link = s.get(url, headers=headers).text
-	link = link.encode('ascii', 'ignore')
-	return link
-
 def addDir(name,url,mode,iconimage,fanart,description):
 	u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&description="+urllib.quote_plus(description)
 	ok=True
@@ -191,9 +184,6 @@ def addDir(name,url,mode,iconimage,fanart,description):
 		ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
 	return ok
 
-
-def OPEN_UrlRez():
-		xbmcaddon.Addon('script.module.urlresolver').openSettings()
 
 
 def get_params():
